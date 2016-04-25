@@ -1,0 +1,17 @@
+{
+    "name": "ket4yii/phpci-deployer-plugin",
+    "description": "Simple deployer(deployer.org) plugin for PHPCI",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Boyko",
+            "email": "ket4yiit@gmail.com"
+        }
+    ],
+    "require": {}
+    "autoload": {
+      "psr-4": {
+        "ket4yii\\PHPCI\\Deployer": ""
+      }
+    }
+}
