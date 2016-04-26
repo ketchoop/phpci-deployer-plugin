@@ -69,7 +69,10 @@ class Deployer implements \PHPCI\Plugin {
     }
 
     $stage = $branchConfig['stage'];
-    $verbosity = '-' . $this->getVerbosityLevel($branchConfig['verbosity']);
+
+    if (!empty($branchConfig['verbosity'])) {
+      $verbosity = $this->getVerbosityLevel($branchConfig['verbosity']);
+    }
     
     $deployerCmd = "$this->dep $verbosity $task $stage"; 
 
@@ -120,7 +123,6 @@ class Deployer implements \PHPCI\Plugin {
    */
   protected function getVerbosityLevel($verbosity) {
     $LOG_LEVEL_ENUM = [
-      'normal' => '',
       'verbose' =>'v',
       'very verbose' => 'vv',
       'debug' => 'vvv',
@@ -128,7 +130,12 @@ class Deployer implements \PHPCI\Plugin {
     ];
 
     $verbosity = strtolower(trim($verbosity));
- 
-    return $LOG_LEVEL_ENUM[$verbosity];
+
+    if ($verbosity !== 'normal') {
+      return '-' . $LOG_LEVEL_ENUM[$verbosity]; 
+    } else {
+      return '';
+    }
+
   }
 }
