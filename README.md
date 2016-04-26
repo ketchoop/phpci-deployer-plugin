@@ -10,11 +10,11 @@ and verbosity level(for default is normal)
 
 #Sample configuration
 ```
-  \ket4yii\PHPCI\Deployer\Plugin:
-    master:
-      task: "prod-dep"
-      stage: "production" 
-    development:
-      task: "dev-dep"
-      stage: "development"
+\ket4yii\PHPCI\Deployer\Plugin:
+  master:
+    task: "prod-dep"
+    stage: "production" 
+  development:
+    task: "dev-dep"
+    stage: "development"
 ```
