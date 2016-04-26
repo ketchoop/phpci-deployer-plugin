@@ -10,7 +10,7 @@ and verbosity level(for default is normal)
 
 #Sample configuration
 ```
-\ket4yii\PHPCI\Deployer\Plugin:
+\Ket4yii\PHPCI\Deployer\Plugin:
   master:
     task: "prod-dep"
     stage: "production" 

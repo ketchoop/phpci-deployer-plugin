@@ -69,9 +69,9 @@ class Deployer implements \PHPCI\Plugin {
     }
 
     $stage = $branchConfig['stage'];
-    $verbosity = $this->getVerbosityLevel($branchConfig['verbosity']);
+    $verbosity = '-' . $this->getVerbosityLevel($branchConfig['verbosity']);
     
-    $deployerCmd = "$this->dep -$verbosity $task $stage"; 
+    $deployerCmd = "$this->dep $verbosity $task $stage"; 
 
     return $this->phpci->executeCommand($deployerCmd);
   }
