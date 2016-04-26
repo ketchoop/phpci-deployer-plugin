@@ -9,7 +9,7 @@
  * @link https://github.com/ket4yii/phpci-deployer-plugin
  */
 
-namespace ket4yii\PHPCI\Deployer\Plugin;
+namespace Ket4yii\PHPCI\Deployer\Plugin;
 
 use PHPCI\Builder;
 use PHPCI\Model\Build;
