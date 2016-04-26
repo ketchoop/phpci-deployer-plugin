@@ -14,7 +14,7 @@
     },
     "autoload": {
       "psr-4": {
-        "ket4yii\\PHPCI\\Deployer\\": ""
+        "Ket4yii\\PHPCI\\Deployer\\": ""
       }
     },
     "require-dev": {
