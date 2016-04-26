@@ -20,6 +20,7 @@ class Deployer implements \PHPCI\Plugin {
   protected $build;
   protected $config;
   protected $dep;
+  protected $branch;
   
   /**
    * Standard Constructor
@@ -43,6 +44,7 @@ class Deployer implements \PHPCI\Plugin {
     $this->config = $options;
 
     $this->dep = $this->phpci->findBinary('dep');
+    $this->branch = $this->build->getBranch();
   }
 
   /**
@@ -51,7 +53,6 @@ class Deployer implements \PHPCI\Plugin {
    * @return bool Did plugin execute successfully 
    */
   public function execute() {
-    $branch = $this->build->getBranch();
     $task = 'deploy'; //default task is deploy
     $verbosity = ''; //default verbosity is normal
 
@@ -61,7 +62,7 @@ class Deployer implements \PHPCI\Plugin {
       return $validationResult['successful']; 
     }
 
-    $branchConfig = $this->config[$branch];
+    $branchConfig = $this->config[$this->branch];
 
     if (!empty($branchConfig['task'])) {
       $task = $branchConfig['task']; 
@@ -91,14 +92,14 @@ class Deployer implements \PHPCI\Plugin {
       ];
     }
 
-    if (empty($this->config[$branch])) {
+    if (empty($this->config[$this->branch])) {
       return [
         'message' => 'There is no specified config for this branch.',
         'successful' => true
       ];
     }
 
-    $branchConf = $this->config[$branch];
+    $branchConf = $this->config[$this->branch];
 
     if (empty($branchConf['stage'])) {
       return [
