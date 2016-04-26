@@ -103,7 +103,7 @@ class Deployer implements \PHPCI\Plugin {
 
     if (empty($branchConf['stage'])) {
       return [
-        'message' => 'There is no stage for this branch'
+        'message' => 'There is no stage for this branch',
         'successful' => false
       ];
     }
