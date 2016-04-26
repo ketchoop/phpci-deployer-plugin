@@ -1,4 +1,13 @@
 <?php
+/**
+ * Deployer plugin for PHPCI
+ * @see http://deployer.org
+ *
+ * @copyright
+ * @license MIT
+ * @license https://github.com/ket4yii/phpci-deployer-plugin/blob/master/LICENSE
+ * @link https://github.com/ket4yii/phpci-deployer-plugin
+ */
 
 namespace ket4yii\PHPCI\Deployer\Plugin;
 
@@ -86,6 +95,15 @@ class Deployer implements \PHPCI\Plugin {
       return [
         'message' => 'There is no specified config for this branch.',
         'successful' => true
+      ];
+    }
+
+    $branchConf = $this->config[$branch];
+
+    if (empty($branchConf['stage'])) {
+      return [
+        'message' => 'There is no stage for this branch'
+        'successful' => false
       ];
     }
 
