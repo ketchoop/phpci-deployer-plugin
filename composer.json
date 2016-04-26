@@ -9,13 +9,15 @@
         }
     ],
     "require": {},
+    "scripts": {
+      "lint": "./vendor/bin/parallel-lint . --exclude vendor" 
+    },
     "autoload": {
       "psr-4": {
-        "ket4yii\\PHPCI\\Deployer\\": ""
+        "Ket4yii\\PHPCI\\Deployer\\": ""
       }
     },
     "require-dev": {
-        "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "jakub-onderka/php-console-highlighter": "^0.3.2"
+        "jakub-onderka/php-parallel-lint": "^0.9.2"
     }
 }
