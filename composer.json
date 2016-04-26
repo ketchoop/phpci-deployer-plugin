@@ -9,6 +9,9 @@
         }
     ],
     "require": {},
+    "scripts": {
+      "lint": "./vendor/bin/parallel-lint . --exclude vendor" 
+    },
     "autoload": {
       "psr-4": {
         "ket4yii\\PHPCI\\Deployer\\": ""
