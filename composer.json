@@ -20,4 +20,15 @@
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "^0.9.2"
     }
+    "extra": {
+      "phpci": {
+        "pluginNamespace": "Ket4yii\\PHPCI\\Deployer\\Plugin",
+        "suppliedPlugins": [
+          {
+            "name": "Deployer",
+            "class": "Deployer"
+          }
+        ]
+      }
+    }
 }
