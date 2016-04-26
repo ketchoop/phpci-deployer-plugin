@@ -41,19 +41,11 @@ class Deployer implements \PHPCI\Plugin {
     $task = 'deploy'; //default task is deploy
     $verbosity = ''; //default verbosity is normal
 
-    if (empty($this->config)) {
-      $this->phpci->log('Can\'t find configuration for plugin!');
+    if (($validationResult = $this->validateConfig()) === NULL) {
+      $this->phpci->log($validationResult['message']);
 
-      return false;
-    } 
-
-    if (empty($this->config[$branch])) {
-      $this->phpci->log(
-        'There is no specified config for branch'  . $branch . '.'
-      );
-
-      return true;
-    } 
+      return $validationResult['successful']; 
+    }
 
     $branchConfig = $this->config[$branch];
 
@@ -70,7 +62,22 @@ class Deployer implements \PHPCI\Plugin {
     return $this->phpci->executeCommand($deployerCmd);
   }
 
-  protected function validateConfig($config) {
+  protected function validateConfig() {
+    if (empty($this->config)) {
+      return [
+        'message' => 'Can\'t find configuration for plugin!',
+        'successful' => false
+      ];
+    }
+
+    if (empty($this->config[$branch])) {
+      return [
+        'message' => 'There is no specified config for this branch.',
+        'successful' => true
+      ];
+    }
+
+    return null;
   }
 
   protected function getVerbosityLevel($verbosity) {
