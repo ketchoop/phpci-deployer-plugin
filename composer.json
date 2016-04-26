@@ -8,7 +8,7 @@
             "email": "ket4yiit@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
     "autoload": {
       "psr-4": {
         "ket4yii\\PHPCI\\Deployer": ""
