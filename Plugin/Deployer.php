@@ -49,8 +49,7 @@ class Deployer implements \PHPCI\Plugin {
 
     $branchConfig = $this->config[$branch];
 
-    //TODO: delete redundant brackets
-    if (!(empty($branchConfig['task']))) {
+    if (!empty($branchConfig['task'])) {
       $task = $branchConfig['task']; 
     }
 
