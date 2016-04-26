@@ -36,6 +36,11 @@ class Deployer implements \PHPCI\Plugin {
     $this->dep = $this->phpci->findBinary('dep');
   }
 
+  /**
+   * PHPCI plugin executor.
+   *
+   * @return bool Did plugin execute successfully 
+   */
   public function execute() {
     $branch = $this->build->getBranch();
     $task = 'deploy'; //default task is deploy
@@ -61,6 +66,14 @@ class Deployer implements \PHPCI\Plugin {
     return $this->phpci->executeCommand($deployerCmd);
   }
 
+  /**
+   * Validate config.
+   *
+   * $validationRes['message'] Message to log
+   * $validationRes['successful'] Plugin status that is connected with error
+   *
+   *  @return array validation result
+   */
   protected function validateConfig() {
     if (empty($this->config)) {
       return [
@@ -79,6 +92,13 @@ class Deployer implements \PHPCI\Plugin {
     return null;
   }
 
+  /**
+   * Get verbosity flag.
+   * 
+   * @param string $verbosity User defined verbosity level
+   *
+   * @return string Verbosity flag
+   */
   protected function getVerbosityLevel($verbosity) {
     $LOG_LEVEL_ENUM = [
       'normal' => '',
