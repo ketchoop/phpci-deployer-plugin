@@ -25,7 +25,7 @@
         "pluginNamespace": "Ket4yii\\PHPCI\\Deployer\\Plugin",
         "suppliedPlugins": [
           {
-            "name": "Deployer",
+            "name": "PhpDeployer",
             "class": "Deployer"
           }
         ]
