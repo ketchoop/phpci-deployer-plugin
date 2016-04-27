@@ -55,6 +55,7 @@ class Deployer implements \PHPCI\Plugin {
   public function execute() {
     $task = 'deploy'; //default task is deploy
     $verbosity = ''; //default verbosity is normal
+    $filename = '';
 
     if (($validationResult = $this->validateConfig()) !== NULL) {
       $this->phpci->log($validationResult['message']);
@@ -73,8 +74,12 @@ class Deployer implements \PHPCI\Plugin {
     if (!empty($branchConfig['verbosity'])) {
       $verbosity = $this->getVerbosityOption($branchConfig['verbosity']);
     }
+
+    if (!empty($branchConfig['filename'])) {
+      $filename = '--filename= ' . $branchConfig['filename'];
+    }
     
-    $deployerCmd = "$this->dep $verbosity $task $stage"; 
+    $deployerCmd = "$this->dep $filename $verbosity $task $stage"; 
 
     return $this->phpci->executeCommand($deployerCmd);
   }
