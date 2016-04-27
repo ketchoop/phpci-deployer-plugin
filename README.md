@@ -12,9 +12,9 @@ and verbosity level(for default is normal)
 ```
 \Ket4yii\PHPCI\Deployer\Plugin:
   master:
-    task: "prod-dep"
-    stage: "production" 
+    task: prod-dep
+    stage: production 
   development:
-    task: "dev-dep"
-    stage: "development"
+    task: ev-dep
+    stage: development
 ```
