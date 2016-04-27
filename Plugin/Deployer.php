@@ -71,7 +71,7 @@ class Deployer implements \PHPCI\Plugin {
     $stage = $branchConfig['stage'];
 
     if (!empty($branchConfig['verbosity'])) {
-      $verbosity = $this->getVerbosityLevel($branchConfig['verbosity']);
+      $verbosity = $this->getVerbosityOption($branchConfig['verbosity']);
     }
     
     $deployerCmd = "$this->dep $verbosity $task $stage"; 
@@ -121,7 +121,7 @@ class Deployer implements \PHPCI\Plugin {
    *
    * @return string Verbosity flag
    */
-  protected function getVerbosityLevel($verbosity) {
+  protected function getVerbosityOption($verbosity) {
     $LOG_LEVEL_ENUM = [
       'verbose' =>'v',
       'very verbose' => 'vv',
