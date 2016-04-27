@@ -75,7 +75,7 @@ class Deployer implements \PHPCI\Plugin {
       $verbosity = $this->getVerbosityOption($branchConfig['verbosity']);
     }
 
-    if (!empty($branchConfig['filename'])) {
+    if (!empty($branchConfig['file'])) {
       $filename = '--filename= ' . $branchConfig['filename'];
     }
     
