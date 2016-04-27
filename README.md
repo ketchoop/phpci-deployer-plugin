@@ -12,23 +12,23 @@ and verbosity level(for default is normal)
 ##Plugin options
 
 * stage(*required*) - Stage or server name
-* task(*optional*) - Task name (*default value is deploy*) 
-* verbosity(*optional*) - Add verbose mode to plugin execution
+* task(*optional*) - Task name (*default task is deploy*) 
+* verbosity(*optional*) - Add verbose mode to plugin execution (*default is no verbose that equal to normal in example below*)
   * normal
   * verbose
   * very verbose
   * debug
   * quiet 
+* file(*optional*) - Filename of deployer configuration. For default deployer takes deploy.php if this field is not specified
 
 #Sample configuration
 ```
 \Ket4yii\PHPCI\Deployer\Plugin:
-  master: 
-    task: sample-task #optional, default task is deploy 
-    stage: production #required, name of stage or server
-    verbose: debug #optional, default is normal(no verbosity)
-  development:
-    task: sample-task #optional, default task is deploy 
-    stage: development #required, name of stage or server
-
+  development: 
+    task: sample-task # optional, default task is deploy 
+    stage: dev # required, name of stage or server
+    verbose: debug # optional, default is normal(no verbosity)
+    file: .deploy_config.php # optional, deployer takes the deploy.php file for default
+  master:
+    stage: prod #required, name of stage or server
 ```
