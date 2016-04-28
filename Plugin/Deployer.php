@@ -87,10 +87,9 @@ class Deployer implements \PHPCI\Plugin {
       $keys = $this->writeKeys();
 
       putenv("ID_PUB_PATH=${keys['public']}");
-      putenv("ID_PUB_PATH=${keys['private']}");
+      putenv("ID_PRIVATE_PATH=${keys['private']}");
       
       $cmd[] = "rm ${keys['public']} ${keys['private']}";
-      //$cmd[] = "unset";
     }
     
     $cmd = implode(' && ', $cmd); 
@@ -170,14 +169,14 @@ class Deployer implements \PHPCI\Plugin {
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
-    $privateKeyName = uniqid();
-    $publicKeyName = uniqid();
+    $privateKeyName = uniqid("dep_") . ".pub";
+    $publicKeyName = uniqid("dep_") . ".pub";
 
     $privateKeyFile = fopen("$keysFolder/$privateKeyName", 'w');
     $publicKeyFile = fopen("$keysFolder/$publicKeyName", 'w');
 
     $keys['public'] = "$keysFolder/$publicKeyName";
-    $keys['private'] = "$keysFolder/$publicKeyName";
+    $keys['private'] = "$keysFolder/$privateKeyName";
 
     fwrite($privateKeyFile, $privateKey);
     fwrite($publicKeyFile, $publicKey);
