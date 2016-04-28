@@ -56,6 +56,7 @@ class Deployer implements \PHPCI\Plugin {
     $task = 'deploy'; //default task is deploy
     $verbosity = ''; //default verbosity is normal
     $filename = '';
+    $cmd = [];
 
     if (($validationResult = $this->validateConfig()) !== NULL) {
       $this->phpci->log($validationResult['message']);
@@ -78,10 +79,19 @@ class Deployer implements \PHPCI\Plugin {
     if (!empty($branchConfig['file'])) {
       $filename = '--filename= ' . $branchConfig['filename'];
     }
-    
-    $deployerCmd = "$this->dep $filename $verbosity $task $stage"; 
 
-    return $this->phpci->executeCommand($deployerCmd);
+    $deployerCmd = "$this->dep $filename $verbosity $task $stage";
+    $cmd[] = $deployerCmd;
+
+    if ($branchConfig['getProjectIdentity'] == true) {
+      $this->writePrivateKey();
+      
+      $cmd[] = "rm /tmp/id_rsa /tmp/id_rsa.pub";
+    }
+    
+    $cmd = implode(' && ', $cmd); 
+
+    return $this->phpci->executeCommand($cmd);
   }
 
   /**
@@ -142,5 +152,17 @@ class Deployer implements \PHPCI\Plugin {
       return '';
     }
 
+  }
+  
+  /**
+   *
+   * 
+   *
+   */
+  protected function writeKeys() {
+    $privateKey = $this->build->getProject()->getPrivateSshKey();
+    $publicKey = $this->build->getProject()->getPublicSshKey();
+
+    exec('echo $privateKey > id_rsa && echo > id_rsa.pub');
   }
 }
