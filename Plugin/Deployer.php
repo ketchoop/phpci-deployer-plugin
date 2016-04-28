@@ -163,6 +163,13 @@ class Deployer implements \PHPCI\Plugin {
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
-    exec('echo $privateKey > id_rsa && echo > id_rsa.pub');
+    $privateKeyFile = fopen('/tmp/id_rsa', 'w');
+    $publicKeyFile = fopen('/tmp/id_rsa.pub', 'w');
+
+    fwrite($privateKeyFile, $privateKey);
+    fwrite($publicKeyFile, $publicKey);
+
+    fclose($privateKeyFile);
+    fclose($publicKeyFile);
   }
 }
