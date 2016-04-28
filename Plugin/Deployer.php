@@ -84,7 +84,7 @@ class Deployer implements \PHPCI\Plugin {
     $cmd[] = $deployerCmd;
 
     if ($branchConfig['getProjectKey'] == true) {
-      $this->writePrivateKey();
+      $this->writeKeys();
       
       $cmd[] = "rm /tmp/id_rsa /tmp/id_rsa.pub";
     }
