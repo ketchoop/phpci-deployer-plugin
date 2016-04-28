@@ -176,7 +176,8 @@ class Deployer implements \PHPCI\Plugin {
     $privateKeyFile = fopen("$keysFolder/$privateKeyName", 'w');
     $publicKeyFile = fopen("$keysFolder/$publicKeyName", 'w');
 
-    $keys['private'] = "$publicKeyName/$privateKeyName";
+    $keys['public'] = "$keysFolder/$publicKeyName";
+    $keys['private'] = "$keysFolder/$publicKeyName";
 
     fwrite($privateKeyFile, $privateKey);
     fwrite($publicKeyFile, $publicKey);
