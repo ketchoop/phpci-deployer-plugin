@@ -160,8 +160,8 @@ class Deployer implements \PHPCI\Plugin {
    *
    */
   protected function writeKeys() {
-    $privateKey = $this->build->getProject()->getPrivateSshKey();
-    $publicKey = $this->build->getProject()->getPublicSshKey();
+    $privateKey = $this->build->getProject()->getSshPrivateKey();
+    $publicKey = $this->build->getProject()->getSshPublicKey();
 
     exec('echo $privateKey > id_rsa && echo > id_rsa.pub');
   }
