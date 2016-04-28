@@ -84,9 +84,13 @@ class Deployer implements \PHPCI\Plugin {
     $cmd[] = $deployerCmd;
 
     if ($branchConfig['getProjectKey'] == true) {
-      $this->writeKeys();
+      $keys = $this->writeKeys();
+
+      putenv("ID_PUB_PATH=${keys['public']}");
+      putenv("ID_PUB_PATH=${keys['private']}");
       
-      $cmd[] = "rm /tmp/id_rsa /tmp/id_rsa.pub";
+      $cmd[] = "rm ${keys['public']} ${keys['private']}";
+      //$cmd[] = "unset";
     }
     
     $cmd = implode(' && ', $cmd); 
@@ -160,16 +164,26 @@ class Deployer implements \PHPCI\Plugin {
    *
    */
   protected function writeKeys() {
+    $keys = [];
+    $keysFolder = '/tmp';
+
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
-    $privateKeyFile = fopen('/tmp/id_rsa', 'w');
-    $publicKeyFile = fopen('/tmp/id_rsa.pub', 'w');
+    $privateKeyName = uniqid();
+    $publicKeyName = uniqid();
+
+    $privateKeyFile = fopen("$keysFolder/$privateKeyName", 'w');
+    $publicKeyFile = fopen("$keysFolder/$publicKeyName", 'w');
+
+    $keys['private'] = "$publicKeyName/$privateKeyName";
 
     fwrite($privateKeyFile, $privateKey);
     fwrite($publicKeyFile, $publicKey);
 
     fclose($privateKeyFile);
     fclose($publicKeyFile);
+
+    return $keys;
   }
 }
