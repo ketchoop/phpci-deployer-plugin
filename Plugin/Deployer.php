@@ -166,23 +166,27 @@ class Deployer implements \PHPCI\Plugin {
    * 
    *
    */
-  protected function writeKeys($filename=null) {
+  protected function writeKeys($filepath=null) {
     $keys = [];
-    $keysFolder = '/tmp';
+    $keysDefaultFolder = '/tmp';
 
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
     if ($filename !== null) {
-      $privateKeyName = $filename;
-      $publicKeyName = $filename . ".pub";
+      $privateKeyName = $filepath;
+      $publicKeyName = $filepath. ".pub";
+
+      $privateKeyFile = fopen("$privateKeyName", 'w');
+      $publicKeyFile = fopen("$publicKeyName", 'w');
     } else {
       $privateKeyName = uniqid("dep_");
       $publicKeyName = uniqid("dep_") . ".pub";
+
+      $privateKeyFile = fopen("$keysDefaultFolder/$privateKeyName", 'w');
+      $publicKeyFile = fopen("$keysDefaultFolder/$publicKeyName", 'w');
     }
 
-    $privateKeyFile = fopen("$keysFolder/$privateKeyName", 'w');
-    $publicKeyFile = fopen("$keysFolder/$publicKeyName", 'w');
 
     $keys['public'] = "$keysFolder/$publicKeyName";
     $keys['private'] = "$keysFolder/$privateKeyName";
