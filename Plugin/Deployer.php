@@ -85,7 +85,7 @@ class Deployer implements \PHPCI\Plugin {
 
     if (!empty($branchConfig)) {
 
-      if ($branchConfig['getProjectKey'] == true) {
+      if ($branchConfig['getProjectKey'] === true) {
         $keys = $this->writeKeys();
         putenv("ID_PUB_PATH=${keys['public']}");
         putenv("ID_PRIVATE_PATH=${keys['private']}");
