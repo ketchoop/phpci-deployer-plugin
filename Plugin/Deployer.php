@@ -96,7 +96,7 @@ class Deployer implements \PHPCI\Plugin {
       $cmd[] = "rm ${keys['public']} ${keys['private']}";
     }
     
-    $cmd = implode(' && ', $cmd);
+    $cmd = implode(' ;  ', $cmd);
 
     return $this->phpci->executeCommand($cmd);
   }
