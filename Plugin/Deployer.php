@@ -83,16 +83,20 @@ class Deployer implements \PHPCI\Plugin {
     $deployerCmd = "$this->dep $filename $verbosity $task $stage";
     $cmd[] = $deployerCmd;
 
-    if ($branchConfig['getProjectKey'] == true) {
-      $keys = $this->writeKeys();
+    if (!empty($branchConfig)) {
 
-      putenv("ID_PUB_PATH=${keys['public']}");
-      putenv("ID_PRIVATE_PATH=${keys['private']}");
-      
+      if ($branchConfig['getProjectKey'] == true) {
+        $keys = $this->writeKeys();
+        putenv("ID_PUB_PATH=${keys['public']}");
+        putenv("ID_PRIVATE_PATH=${keys['private']}");
+      } else {
+        $keys = $this->writeKeys($branchConfig['getProjectKey']);
+      }
+
       $cmd[] = "rm ${keys['public']} ${keys['private']}";
     }
     
-    $cmd = implode(' && ', $cmd); 
+    $cmd = implode(' && ', $cmd);
 
     return $this->phpci->executeCommand($cmd);
   }
@@ -162,15 +166,20 @@ class Deployer implements \PHPCI\Plugin {
    * 
    *
    */
-  protected function writeKeys() {
+  protected function writeKeys($filename=null) {
     $keys = [];
     $keysFolder = '/tmp';
 
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
-    $privateKeyName = uniqid("dep_") . ".pub";
-    $publicKeyName = uniqid("dep_") . ".pub";
+    if ($filename !== null) {
+      $privateKeyName = $filename;
+      $publicKeyName = $filename . ".pub";
+    } else {
+      $privateKeyName = uniqid("dep_");
+      $publicKeyName = uniqid("dep_") . ".pub";
+    }
 
     $privateKeyFile = fopen("$keysFolder/$privateKeyName", 'w');
     $publicKeyFile = fopen("$keysFolder/$publicKeyName", 'w');
