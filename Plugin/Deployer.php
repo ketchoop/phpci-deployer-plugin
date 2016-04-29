@@ -173,7 +173,7 @@ class Deployer implements \PHPCI\Plugin {
     $privateKey = $this->build->getProject()->getSshPrivateKey();
     $publicKey = $this->build->getProject()->getSshPublicKey();
 
-    if ($filename !== null) {
+    if ($filepath !== null) {
       $privateKeyPath = $filepath;
       $publicKeyPath = $filepath . ".pub";
 
