@@ -189,7 +189,7 @@ class Deployer implements \PHPCI\Plugin {
 
 
     $keys['public'] = $publicKeyPath;
-    $keys['private'] = $privateKeyPath";
+    $keys['private'] = $privateKeyPath;
 
     fwrite($privateKeyFile, $privateKey);
     fwrite($publicKeyFile, $publicKey);
