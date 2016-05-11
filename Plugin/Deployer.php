@@ -53,10 +53,6 @@ class Deployer implements \PHPCI\Plugin {
    * @return bool Did plugin execute successfully 
    */
   public function execute() {
-    $task = 'deploy'; //default task is deploy
-    $verbosity = ''; //default verbosity is normal
-    $filename = '';
-
     if (($validationResult = $this->validateConfig()) !== NULL) {
       $this->phpci->log($validationResult['message']);
 
@@ -64,22 +60,9 @@ class Deployer implements \PHPCI\Plugin {
     }
 
     $branchConfig = $this->config[$this->branch];
-
-    if (!empty($branchConfig['task'])) {
-      $task = $branchConfig['task']; 
-    }
-
-    $stage = $branchConfig['stage'];
-
-    if (!empty($branchConfig['verbosity'])) {
-      $verbosity = $this->getVerbosityOption($branchConfig['verbosity']);
-    }
-
-    if (!empty($branchConfig['file'])) {
-      $filename = '--filename= ' . $branchConfig['filename'];
-    }
+    $options = $this->getOptions($branchConfig);
     
-    $deployerCmd = "$this->dep $filename $verbosity $task $stage"; 
+    $deployerCmd = "$this->dep $options";
 
     return $this->phpci->executeCommand($deployerCmd);
   }
@@ -141,6 +124,36 @@ class Deployer implements \PHPCI\Plugin {
     } else {
       return '';
     }
+  }
 
+  /**
+   * Make deployer options from config
+   *
+   * @param array $config Deployer configration array
+   *
+   * @return string Deployer options
+   */
+  protected function getOptions($config) {
+    $options = [];
+
+    if ($branchConfig['task'] != null) {
+      $options[] = $branchConfig['task']; 
+    } else {
+      $options[] = 'deploy';
+    }
+
+    if ($branchConfig['stage'] != null) {
+      $options[] = $branchConfig['stage'];
+    }
+
+    if ($branchConfig['verbosity'] != null) {
+      $options[] = $this->getVerbosityOption($branchConfig['verbosity']);
+    }
+
+    if ($branchConfig['file'] != null) {
+      $options[] = '--filename= ' . $branchConfig['filename'];
+    }
+
+    return implode(' ', $options);
   }
 }
