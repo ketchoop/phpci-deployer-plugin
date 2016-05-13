@@ -142,22 +142,22 @@ class Deployer implements \PHPCI\Plugin
     {
         $options = [];
 
-        if ($branchConfig['task'] != null) {
-            $options[] = $branchConfig['task']; 
+        if ($config['task'] != null) {
+            $options[] = $config['task']; 
         } else {
             $options[] = 'deploy';
         }
 
-        if ($branchConfig['stage'] != null) {
-            $options[] = $branchConfig['stage'];
+        if ($config['stage'] != null) {
+            $options[] = $config['stage'];
         }
 
-        if ($branchConfig['verbosity'] != null) {
-            $options[] = $this->getVerbosityOption($branchConfig['verbosity']);
+        if ($config['verbosity'] != null) {
+            $options[] = $this->getVerbosityOption($config['verbosity']);
         }
 
-        if ($branchConfig['file'] != null) {
-            $options[] = '--filename= ' . $branchConfig['filename'];
+        if ($config['file'] != null) {
+            $options[] = '--filename= ' . $config['filename'];
         }
 
         return implode(' ', $options);
