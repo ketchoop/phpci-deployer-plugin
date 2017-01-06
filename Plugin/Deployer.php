@@ -82,15 +82,15 @@ class Deployer implements \PHPCI\Plugin
     {
         if (empty($this->config)) {
             return [
-            'message' => 'Can\'t find configuration for plugin!',
-            'successful' => false
+                'message' => 'Can\'t find configuration for plugin!',
+                'successful' => false
             ];
         }
 
         if (empty($this->config[$this->branch])) {
             return [
-            'message' => 'There is no specified config for this branch.',
-            'successful' => true
+                'message' => 'There is no specified config for this branch.',
+                'successful' => true
             ];
         }
 
@@ -98,8 +98,8 @@ class Deployer implements \PHPCI\Plugin
 
         if (empty($branchConf['stage'])) {
             return [
-            'message' => 'There is no stage for this branch',
-            'successful' => false
+                'message' => 'There is no stage for this branch',
+                'successful' => false
             ];
         }
 
@@ -116,10 +116,10 @@ class Deployer implements \PHPCI\Plugin
     protected function getVerbosityOption($verbosity) 
     {
         $LOG_LEVEL_ENUM = [
-        'verbose' =>'v',
-        'very verbose' => 'vv',
-        'debug' => 'vvv',
-        'quiet' => 'q'
+            'verbose' =>'v',
+            'very verbose' => 'vv',
+            'debug' => 'vvv',
+            'quiet' => 'q'
         ];
 
         $verbosity = strtolower(trim($verbosity));
