@@ -157,7 +157,7 @@ class Deployer implements \PHPCI\Plugin
         }
 
         if ($config['file'] != null) {
-            $options[] = '--filename= ' . $config['filename'];
+            $options[] = '--file=' . $config['file'];
         }
 
         return implode(' ', $options);
