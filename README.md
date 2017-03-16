@@ -1,15 +1,15 @@
-#PHPCI-Deployer-Plugin
+# PHPCI-Deployer-Plugin
 
 Simple plugin for [Deployer](http://deployer.org)
 
-#How to use
+# How to use
 
 Keyword of this plugin is simple. It means that you just need to define branch 
 for configuration task name(if there is no task, plugin takes 
 default value that is "deploy"), stage name(it would be just server name or defined stage)
 , verbosity level(for default is normal) and filename(by default deployer takes the deployer.php file)
 
-##Plugin options
+## Plugin options
 
 * stage(*required*) - Stage or server name
 * task(*optional*) - Task name (*default task is deploy*) 
@@ -21,7 +21,7 @@ default value that is "deploy"), stage name(it would be just server name or defi
   * quiet 
 * file(*optional*) - Filename of deployer configuration. For default deployer takes deploy.php if this field is not specified
 
-#Sample configuration
+# Sample configuration
 ```
 \Ket4yii\PHPCI\Deployer\Plugin\Deployer:
   development: # branch name
