@@ -23,7 +23,7 @@ default value that is "deploy"), stage name(it would be just server name or defi
 
 #Sample configuration
 ```
-\Ket4yii\PHPCI\Deployer\Plugin:
+\Ket4yii\PHPCI\Deployer\Plugin\Deployer:
   development: 
     task: sample-task # optional, default task is deploy 
     stage: dev # required, name of stage or server
