@@ -27,7 +27,7 @@ default value that is "deploy"), stage name(it would be just server name or defi
   development: # branch name
     task: sample-task # optional, default task is deploy 
     stage: dev # required, name of stage or server
-    verbose: debug # optional, default is normal(no verbosity)
+    verbosity: debug # optional, default is normal(no verbosity)
     file: .deploy_config.php # optional, deployer takes the deploy.php file for default
   master:
     stage: prod #required, name of stage or server
